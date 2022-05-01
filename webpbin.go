@@ -3,6 +3,7 @@ package webpbin
 import (
 	"bytes"
 	"image"
+	"image/gif"
 	"image/png"
 	"io"
 	"io/ioutil"
@@ -51,7 +52,7 @@ func loadDefaultFromENV(binWrapper *binwrapper.BinWrapper) error {
 
 // DetectUnsupportedPlatforms detects platforms without prebuilt binaries (alpine and arm).
 // For this platforms libwebp tools should be built manually.
-// See https://github.com/nickalie/go-webpbin/blob/master/docker/Dockerfile and https://github.com/nickalie/go-webpbin/blob/master/docker/Dockerfile.arm for details
+// See https://github.com/huangapple/go-webpbin/blob/master/docker/Dockerfile and https://github.com/huangapple/go-webpbin/blob/master/docker/Dockerfile.arm for details
 func DetectUnsupportedPlatforms() {
 	if runtime.GOARCH == "arm" {
 		skipDownload = true
@@ -147,6 +148,18 @@ func createReaderFromImage(img image.Image) (io.Reader, error) {
 
 	var buffer bytes.Buffer
 	err := enc.Encode(&buffer, img)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &buffer, nil
+}
+
+func createReaderFromGif(gifData *gif.GIF) (io.Reader, error) {
+
+	var buffer bytes.Buffer
+	err := gif.EncodeAll(&buffer, gifData)
 
 	if err != nil {
 		return nil, err

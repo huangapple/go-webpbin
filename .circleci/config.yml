@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: /go/src/github/nickalie/go-webpbin
+    working_directory: /go/src/github/huangapple/go-webpbin
     docker:
       - image: golang
     steps:
@@ -10,10 +10,10 @@ jobs:
       - run: go test -v -coverprofile=coverage.txt -covermode=atomic ./...
       - run: curl -s https://codecov.io/bash | bash
       - run: |
-          curl -u ${CIRCLE_API_TOKEN}: -d build_parameters[CIRCLE_JOB]=build_alpine https://circleci.com/api/v1.1/project/github/nickalie/go-webpbin/tree/master
-          curl -u ${CIRCLE_API_TOKEN}: -d build_parameters[CIRCLE_JOB]=build_arm https://circleci.com/api/v1.1/project/github/nickalie/go-webpbin/tree/master
+          curl -u ${CIRCLE_API_TOKEN}: -d build_parameters[CIRCLE_JOB]=build_alpine https://circleci.com/api/v1.1/project/github/huangapple/go-webpbin/tree/master
+          curl -u ${CIRCLE_API_TOKEN}: -d build_parameters[CIRCLE_JOB]=build_arm https://circleci.com/api/v1.1/project/github/huangapple/go-webpbin/tree/master
   build_alpine:
-    working_directory: /go/src/github/nickalie/go-webpbin
+    working_directory: /go/src/github/huangapple/go-webpbin
     docker:
      - image: golang:alpine
     steps:
