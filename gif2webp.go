@@ -28,6 +28,7 @@ func NewGif2WebP(optionFuncs ...OptionFunc) *Gif2WebP {
 	bin := &Gif2WebP{
 		BinWrapper: createBinWrapper(optionFuncs...),
 		quality:    -1,
+		mixed:      true,
 	}
 	bin.ExecPath("gif2webp")
 

@@ -2,6 +2,7 @@ package webpbin
 
 import (
 	"image"
+	"image/gif"
 	"io"
 )
 
@@ -27,4 +28,9 @@ func (e *Encoder) Encode(w io.Writer, m image.Image) error {
 func Encode(w io.Writer, m image.Image) error {
 	e := &Encoder{Quality: 75}
 	return e.Encode(w, m)
+}
+
+//Encode writes the Image m to w in WebP format. Any Image may be encoded.
+func EncodeGif(w io.Writer, gifData *gif.GIF) error {
+	return NewGif2WebP().InputGif(gifData).Output(w).Run()
 }
