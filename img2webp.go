@@ -118,10 +118,10 @@ func (c *Img2Webp) setInput() error {
 			c.Arg("-d", fmt.Sprint(frame.D))
 		}
 		if frame.Q != nil {
-			c.Arg("-q", fmt.Sprint(frame.Q))
+			c.Arg("-q", fmt.Sprint(*frame.Q))
 		}
 		if frame.M != nil {
-			c.Arg("-m", fmt.Sprint(frame.M))
+			c.Arg("-m", fmt.Sprint(*frame.M))
 		}
 		if frame.Lossless {
 			c.Arg("-lossless")
