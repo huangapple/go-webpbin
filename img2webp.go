@@ -12,12 +12,12 @@ import (
 // https://developers.google.com/speed/webp/docs/Img2Webp
 
 type Img2WebpFrame struct {
-	Url string
-	//Lossless bool
+	Url      string
+	Lossless bool
 	//Lossy    bool
-	D int //指定图像的持续时间， 默认100ms
-	//Q        int //0~100 压缩因子， 默认75
-	//M        int //0~6 默认4
+	D int  //指定图像的持续时间， 默认100ms
+	Q *int //0~100 压缩因子， 默认75
+	M *int //0~6 默认4
 }
 
 type Img2Webp struct {
@@ -115,8 +115,16 @@ func (c *Img2Webp) setInput() error {
 	for _, frame := range c.frames {
 		c.Arg(frame.Url)
 		if frame.D != 0 {
-			c.Arg("-d")
-			c.Arg(fmt.Sprint(frame.D))
+			c.Arg("-d", fmt.Sprint(frame.D))
+		}
+		if frame.Q != nil {
+			c.Arg("-q", fmt.Sprint(frame.Q))
+		}
+		if frame.M != nil {
+			c.Arg("-m", fmt.Sprint(frame.M))
+		}
+		if frame.Lossless {
+			c.Arg("-lossless")
 		}
 	}
 
